@@ -1,0 +1,37 @@
+import numpy as np
+from scipy.stats import multivariate_normal
+
+# Given data
+mu1 = np.array([0.77, -0.41])
+sigma1 = np.array([[0.29, -0.12], [-0.12, 0.55]])
+
+mu2 = np.array([-0.91, 0.5])
+sigma2 = np.array([[0.32, -0.11], [-0.11, 1.12]])
+
+ptest = np.array([0, 0.7])
+
+# Prior probabilities
+p_y1 = 0.53
+p_y2 = 0.47
+
+# Diagonal covariance matrices
+diag_sigma1 = np.diag(np.diag(sigma1))
+diag_sigma2 = np.diag(np.diag(sigma2))
+
+# Calculate the probability density function values
+pdf_y1 = multivariate_normal.pdf(ptest, mean=mu1, cov=diag_sigma1)
+pdf_y2 = multivariate_normal.pdf(ptest, mean=mu2, cov=diag_sigma2)
+
+# Calculate the ratio
+ratio = (pdf_y1 * p_y1) / (pdf_y2 * p_y2)
+
+# Print the result
+print(f"Ratio: {ratio:.2f}")
+
+# Determine the classification
+if ratio > 1:
+    classification = 1
+else:
+    classification = 2
+
+print(f"The point is classified into class {classification}.")

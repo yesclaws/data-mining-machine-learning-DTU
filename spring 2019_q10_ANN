@@ -1,0 +1,26 @@
+import numpy as np
+
+# Define the activation functions
+def sigmoid(x):
+    return 1 / (1 + np.exp(-x))
+
+def linear(x):
+    return x
+
+# Define the weights
+w1 = np.array([[-1.2, -1.3, 0.6],
+               [-1.0, -0.0, 0.9]])
+w2 = np.array([-0.3, 0.5])
+w0 = 2.2
+
+# Input values
+x = np.array([3, 3])
+
+# Compute the activations for the hidden layer
+n1 = sigmoid(np.dot(w1[0], np.concatenate(([1], x))))
+n2 = sigmoid(np.dot(w1[1], np.concatenate(([1], x))))
+
+# Compute the output
+f_x_w = linear(w0 + np.dot(w2, np.array([n1, n2])))
+
+print(f_x_w)
